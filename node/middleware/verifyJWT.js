@@ -1,6 +1,7 @@
 
 const jwt = require('jsonwebtoken')
 const verifyJWT = (req, res, next) => {
+    console.log("I'm in verifyJWT")
     const authHeader = req.headers.authorization ||
         req.headers.Authorization
     if (!authHeader?.startsWith('Bearer ')) {
@@ -15,6 +16,7 @@ const verifyJWT = (req, res, next) => {
                     'Forbidden'
             })
             req.user = decoded
+            console.log(decoded)
             next()
         }
     )

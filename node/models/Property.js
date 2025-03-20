@@ -42,15 +42,20 @@ const propertySchema = new mongoose.Schema({
         type: String
     },
     description:{
-        type: String
+        type: String,
+        required: true
     },
     condition:{
         type: String,
-        enum: ['משופץ','חדש מקבלן','חדש']
+        enum: ['משופץ','חדש מקבלן','חדש'],
+        required: true
     },
     tags:{
         type: [String],
         enum: ['מרפסת','ממ"ד','ממ"ד נפרד','מחסן','חניה','מעלית']
+    },
+    comments:{
+        type: String
     },
     status:{
         type: String,

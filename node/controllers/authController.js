@@ -1,4 +1,4 @@
-// const User = require("../models/User")
+const User = require("../models/User")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -10,11 +10,12 @@ const login = async (req, res) => {
             message: 'email and password fields are required'
         })
     }
+    console.log(email)
     const foundUser = await User.findOne({ email }).lean()
-    if (!foundUser || !foundUser.active) {
+    if (!foundUser) {
         return res.status(401).json({ message: 'Unauthorized' })
-
     }
+    console.log(foundUser)
     const match = await bcrypt.compare(password, foundUser.password)
     if (!match) return res.status(401).json({ message: 'Unauthorized' })
     const userInfo = {
@@ -25,7 +26,7 @@ const login = async (req, res) => {
         permissions: foundUser.permissions
     }
     const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
-    res.json({ accessToken: accessToken })
+    res.json({ accessToken: accessToken, user: userInfo })
 }
 
 const register = async (req, res) => {
@@ -36,6 +37,9 @@ const register = async (req, res) => {
     const duplicate = await User.findOne({ email: email }).lean()
     if (duplicate) {
         return res.status(409).json({ message: "Duplicate username" })
+    }
+    if (typeof password !== "string") {
+        return res.status(400).json({ message: "Password must be a string" });
     }
     const hashedPwd = await bcrypt.hash(password, 10)
     const userObject = { name, email, phone, password: hashedPwd }

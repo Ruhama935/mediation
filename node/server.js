@@ -19,8 +19,9 @@ app.get("/", (req,res)=> {
 })
 
 app.use("/blogs", require("./routes/blogRoutes"))
-// app.use("/api/article", require("./routes/article"))
-// app.use("/api/auth", require("./routes/authRoutes"))
+app.use("/api/property", require("./routes/propertyRoutes"))
+// app.use("/api/recommendations", require("./routes/recommendationsRoutes"))
+app.use("/api/auth", require("./routes/authRoutes"))
 
 mongoose.connection.once('open', ()=>{
     console.log('Connected to MongoDB')

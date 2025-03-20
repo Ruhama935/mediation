@@ -1,12 +1,15 @@
 const Property = require('../models/Property');
 
 const createProperty = async (req, res) => {
-    const { type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, tags } = req.body
-    if (!type || !address || !floor || !rooms || !imgs || !price || !size || !date) {
+    const { type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, comments, tags } = req.body
+    if (!type || !address || !floor || !rooms || !imgs || !price || !size || !date || !description || !condition) {
         return res.status(400).json({ message: 'All fields are required' })
     }
+    if (isNaN(Date.parse(date))) {
+        return res.status(400).json({ message: "Invalid date format" });
+    }
     const property = await Property.create({
-        type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, tags, user: req.user._id 
+        type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, comments, tags, user: req.user._id 
     })
     res.json(property)
 }

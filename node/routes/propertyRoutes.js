@@ -1,15 +1,17 @@
 const express = require("express")
 const router = express.Router()
 const propertyController = require("../controllers/propertyController")
-const { verifyJWT, checkAdmin } = require("../middleware")
+const checkAdmin = require("../middleware/checkAdmin")
+const verifyJWT = require("../middleware/verifyJWT")
 
-router.get("/", propertyController.getAllProperties)
-router.get("/:id", propertyController.getOneProperty)
+// { createProperty, getAwaitingProperties, getConfirmedProperties, getMyProperties, getOneProperty, updateProperty, updateStatusProperty, deleteProperty }
+router.get("/", propertyController.getConfirmedProperties)
+router.get("/id/:id", propertyController.getOneProperty)
 
 router.use(verifyJWT)
 
 router.get("/my-properties", propertyController.getMyProperties)
-router.get("/confirmed-properties", propertyController.getConfirmedProperties)
+// router.get("/confirmed-properties", propertyController.getConfirmedProperties)
 router.post("/", propertyController.createProperty)
 router.put("/:id", propertyController.updateProperty)
 
