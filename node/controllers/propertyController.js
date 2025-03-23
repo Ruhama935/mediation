@@ -1,17 +1,27 @@
 const Property = require('../models/Property');
 
 const createProperty = async (req, res) => {
-    const { type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, comments, tags } = req.body
-    if (!type || !address || !floor || !rooms || !imgs || !price || !size || !date || !description || !condition) {
+    console.log(req.files)
+    console.log("I am in the createProperty")
+    const { type, address, buildingFloor, floor, rooms, price, size, date, description, condition, comments } = req.body
+    const imgs = req.files.map((file) => file.path)
+    // const planImg = req.files[0].path
+    const tags = JSON.parse(req.body.tags)
+    if (!type || !address || !floor || !rooms || !price || !size || !date || !description || !condition) {
         return res.status(400).json({ message: 'All fields are required' })
     }
     if (isNaN(Date.parse(date))) {
         return res.status(400).json({ message: "Invalid date format" });
     }
     const property = await Property.create({
-        type, address, buildingFloor, floor, rooms, imgs, price, size, date, planImg, description, condition, comments, tags, user: req.user._id 
+        type, address, buildingFloor, floor, rooms, imgs, price, size, date, description, condition, comments, tags, user: req.user._id 
     })
     res.json(property)
+}
+
+const uploadFile = async (req, res) => {
+    console.log(req.file)
+    res.json({ message: 'File uploaded successfully' })
 }
 
 const getAwaitingProperties = async (req, res) => {

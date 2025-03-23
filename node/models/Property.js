@@ -52,7 +52,7 @@ const propertySchema = new mongoose.Schema({
     },
     tags:{
         type: [String],
-        enum: ['מרפסת','ממ"ד','ממ"ד נפרד','מחסן','חניה','מעלית']
+        enum: ['מרפסת','ממ"ד','ממ"ד נפרד','מחסן','חניה','מעלית','חצר']
     },
     comments:{
         type: String
