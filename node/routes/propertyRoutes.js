@@ -6,7 +6,7 @@ const verifyJWT = require("../middleware/verifyJWT")
 const multer = require("multer")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, __dirname + '/public/uploads')
+        cb(null, 'C:/Users/This User/Desktop/mediation/node/public/uploads')
     },
     filename: function (req, file, cb) {
         console.log("I am in the storage")
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.get("/", propertyController.getConfirmedProperties)
+router.get("/", propertyController.getConfirmedAndSoldProperties)
 router.get("/id/:id", propertyController.getOneProperty)
 
 router.use(verifyJWT)

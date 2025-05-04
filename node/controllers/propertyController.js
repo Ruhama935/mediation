@@ -4,7 +4,7 @@ const createProperty = async (req, res) => {
     console.log(req.files)
     console.log("I am in the createProperty")
     const { type, address, buildingFloor, floor, rooms, price, size, date, description, condition, comments } = req.body
-    const imgs = req.files.map((file) => file.path)
+    const imgs = req.files
     // const planImg = req.files[0].path
     const tags = JSON.parse(req.body.tags)
     if (!type || !address || !floor || !rooms || !price || !size || !date || !description || !condition) {
@@ -19,11 +19,6 @@ const createProperty = async (req, res) => {
     res.json(property)
 }
 
-const uploadFile = async (req, res) => {
-    console.log(req.file)
-    res.json({ message: 'File uploaded successfully' })
-}
-
 const getAwaitingProperties = async (req, res) => {
     const properties = await Property.find( {status: 'Awaiting confirmation'}).lean()
     if (!properties?.length) {
@@ -32,8 +27,8 @@ const getAwaitingProperties = async (req, res) => {
     res.json(properties)
 }
 
-const getConfirmedProperties = async (req, res) => {
-    const properties = await Property.find( {status: 'Confirmed'}).lean()
+const getConfirmedAndSoldProperties = async (req, res) => {
+    const properties = await Property.find( {status:{ $in: ['Confirmed', 'Sold'] }}).lean()
     if (!properties?.length) {
         return res.status(400).json({ message: 'No properties found' })
     }
@@ -79,6 +74,7 @@ const updateStatusProperty = async (req, res) => {
 }
 
 const deleteProperty = async (req, res) => {
+    console.log("I am in the deleteProperty")
     const property = await Property.findByIdAndDelete(req.params.id).lean()
     if (!property) {
         return res.status(400).json({ message: 'No property found' })
@@ -86,4 +82,4 @@ const deleteProperty = async (req, res) => {
     res.json(property)
 }
 
-module.exports = { createProperty, getAwaitingProperties, getConfirmedProperties, getMyProperties, getOneProperty, updateProperty, updateStatusProperty, deleteProperty }
+module.exports = { createProperty, getAwaitingProperties, getConfirmedAndSoldProperties, getMyProperties, getOneProperty, updateProperty, updateStatusProperty, deleteProperty }

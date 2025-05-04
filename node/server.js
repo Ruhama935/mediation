@@ -22,6 +22,10 @@ app.use("/blogs", require("./routes/blogRoutes"))
 app.use("/api/property", require("./routes/propertyRoutes"))
 // app.use("/api/recommendations", require("./routes/recommendationsRoutes"))
 app.use("/api/auth", require("./routes/authRoutes"))
+// app.use("/api/contact", require("./routes/contactRoutes"));
+// app.use('/api/mail', require('./routes/mailRoutes'));
+app.use("/api/email", require("./routes/emailRoutes"));
+
 
 mongoose.connection.once('open', ()=>{
     console.log('Connected to MongoDB')

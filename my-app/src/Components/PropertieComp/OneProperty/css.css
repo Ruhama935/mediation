@@ -1,0 +1,37 @@
+.gallery-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3% 15% 30px 15%;
+    gap: 20px;
+  }
+  
+  .gallery-text {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .gallery-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  /* .gallery-images {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+   */
+  /* רספונסיביות לטלפונים */
+  @media (max-width: 768px) {
+    .gallery-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .gallery-images {
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+  

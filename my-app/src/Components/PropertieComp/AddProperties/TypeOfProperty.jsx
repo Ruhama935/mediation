@@ -56,10 +56,11 @@ const TypeOfProperty = (prop) => {
                     </RadioGroup>
                 </div>
             </Box>
+            <hr style={{ width: '100%', marginTop: '8%', marginBottom: '8%', border: '0.5px solid #ccc' }} />
             <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <div>
                     <Typography level="title-lg" id="best-movie" sx={{ mb: 2 }}>
-                        סוג נכס
+                        מצב נכס
                     </Typography>
                     <RadioGroup
                         name="best-movie"
