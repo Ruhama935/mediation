@@ -16,6 +16,10 @@ import Gallerias from './Components/PropertieComp/OneProperty/Gallerias';
 import PropertyOne from './Components/PropertieComp/OneProperty/PropertyOne';
 import Status from './Components/PropertieComp/Status';
 import AuthForms from './Components/featurs/auth/AuthForms';
+import AwaitingProperies from './Components/PropertieComp/AwaitingProperies';
+import Prev from './Components/PropertieComp/AddProperties/Prev';
+import UpdateProperty from './Components/PropertieComp/UpdateProperty';
+import { useSelector } from 'react-redux';
 
 
 // דפי דמו
@@ -26,6 +30,8 @@ const Recommendations = () => <h1>המלצות</h1>;
 const Contact = () => <h1>צור קשר</h1>;
 
 function App() {
+  const userLoggedIn = useSelector((state) => state.auth.user);
+
   return (
     <>
       <BrowserRouter>
@@ -34,12 +40,16 @@ function App() {
         <Route path="/" element={<AuthForms/>} />
           <Route path="/about" element={<Status status={"Confirmed"}/>} />
           <Route path="/properties" element={<Properties />} />
-          <Route path="/services" element={<Add />} />
+          <Route path="/Add-prev" element={<Prev />} />
+          <Route path="/Add" element={<Add />} />
           <Route path="/myProperties" element={<PropertyOnCard />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/contact" element={<AddImages />} />
           <Route path="/property/:id" element={<PropertyOne />} />
-
+          <Route path="/property/update/:id" element={<UpdateProperty />} />
+          {userLoggedIn ? userLoggedIn.permissions === 'admin' && (
+            <Route path="/AwaitingProperies" element={<AwaitingProperies />} />
+          ): (<></>)}
         </Routes>
       </BrowserRouter>
       {/* <Register /> */}

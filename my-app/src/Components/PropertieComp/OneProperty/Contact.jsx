@@ -52,7 +52,7 @@
 
 
 
-import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, Button, DialogContent } from '@mui/joy';
+import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
 import React, { useState, useContext } from 'react';
 // import axios from 'axios';
 // import PostContext from './PostContext';
@@ -60,24 +60,28 @@ import Add from '@mui/icons-material/Add';
 import { InputTextarea } from "primereact/inputtextarea";
 import { useSendEmailMutation } from '../PropertyApiSlice';
 import { InputMask } from "primereact/inputmask";
+import { Button } from 'primereact/button';
+import { useSelector } from 'react-redux';
 
 
 function Contact({ id, address }) {
     // const {post, setPosts } = useContext({})
     const [open, setOpen] = useState(false);
     const [sendFunc, { isError, isLoading, data, error, isSuccess }] = useSendEmailMutation()
+    const userLoggedIn = useSelector((state) => state.auth.user);
+
 
     const handleChange = async (e) => {
         e.preventDefault();
         const formElements = e.target.elements;
         
-        const payload = localStorage.getItem('token') ?{
+        const payload = userLoggedIn ?{
             propertyId: id,
             address: address,
             type: "מישהו מתעניין בדירה",
-            name: localStorage.getItem('userName'),
-            email: localStorage.getItem('userEmail'),
-            phone: localStorage.getItem('userPhone'),
+            name: userLoggedIn.name,
+            email: userLoggedIn.email,
+            phone: userLoggedIn.phone,
             message: formElements[0].value || null
         }:{
             propertyId: id,
@@ -107,7 +111,7 @@ function Contact({ id, address }) {
                             setOpen(false);
                         }}>
                         <Stack spacing={4}>
-                            {localStorage.getItem('token') ? <> ההודעה תישלח עם פרטי המשתמש שלך</> : <>
+                            {userLoggedIn ? <> ההודעה תישלח עם פרטי המשתמש שלך</> : <>
                                 <FormControl>
                                     <FormLabel>שם</FormLabel>
                                     <Input title="name" required />

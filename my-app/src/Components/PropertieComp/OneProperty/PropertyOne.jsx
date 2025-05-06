@@ -1,15 +1,19 @@
-import { useLocation } from "react-router-dom";
-import Gallerias from "./Gallerias";
-// import Imgs from "./ImageGallery";
+import { useLocation, useNavigate } from "react-router-dom";
 import ImageGallery from "./ImageGallery";
 import TagsOfProperty from "./TagsOfProperty";
-import { Button } from "primereact/button";
-// import Dialogs from "./Contact";
-import Contact from "./Contact";
+import ActionsBasedOnPermissions from "./ActionsBasedOnPermissions";
 
 export default function PropertyOne() {
     const location = useLocation();
     const { property } = location.state;
+    const navigate = useNavigate();
+
+
+
+    const handleClick = () => {
+        navigate(`/property/update/${property._id}`, { state: { property } }); // נווט לדף הנכס עם ה-ID המתאים
+    }
+
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'flex-start', padding: '3% 15% 0% 12%' }} >
@@ -22,7 +26,7 @@ export default function PropertyOne() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3% 15% 30px 15%', direction: 'rtl' }}>
 
                 {/* <h2 style={{ fontSize: '30px' }}>Size: {property.size} מ"ר</h2> */}
-                <div style={{ fontSize: '18px', padding: '2%'}}>
+                <div style={{ fontSize: '18px', padding: '2%' }}>
                     {property.type} עם {property.rooms} חדרים
                     <br />
                     קומה: {property.floor} מתוך {property.buildingFloor}
@@ -44,15 +48,9 @@ export default function PropertyOne() {
                     <TagsOfProperty tags={property.tags} />
                 </div>
             </div>
-            {property.status !== 'Sold' && <>
-            <hr style={{ width: '80%', margin: '0 auto', border: '0.5px solid #ccc' }} />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3% 15% 30px 15%', direction: 'rtl' }}>
-                {/* <Button label="מתעניין בנכס" style={{margin: '2%'}}/> */}
-                <a href="tel:0534189337" target="_blank" rel="noopener noreferrer" className="p-button font-bold" style={{ textDecoration: 'none', margin: '2%' }}>
-                    התקשר לרחלי 0534189337
-                </a>
-                <Contact id={property._id} address={property.address}/>
-            </div></>}
+            <ActionsBasedOnPermissions property={property} />
+            
+
         </>
     )
 }

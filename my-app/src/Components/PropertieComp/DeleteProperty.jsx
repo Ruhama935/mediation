@@ -1,4 +1,5 @@
-import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, Button, DialogContent } from '@mui/joy';
+import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
+import { Button } from 'primereact/button';
 import React, { useState, useContext, useEffect } from 'react';
 // import PostContext from './PostContext';
 import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
@@ -24,10 +25,8 @@ function DeleteProperty({ id }) {
     return (
         <>
             <Button
-                variant="outlined"
-                color="neutral"
-                onClick={() => setOpen(true)}>
-                <i className="pi pi-trash" style={{ fontSize: '1rem', color: '#fc45a6b0' }}></i>
+                style={{ margin: '0.5rem' }}
+                onClick={() => setOpen(true)}>מחק נכס
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>

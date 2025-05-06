@@ -1,37 +1,3 @@
-
-// import React from 'react';
-// import { Card } from 'primereact/card';
-// import { Button } from 'primereact/button';
-// import { margin } from '@mui/system';
-// import { Center } from '@chakra-ui/react';
-
-// export default function PropertyOnCard(props) {
-//     const { property } = props
-//     const { address, type, price, size, imgs } = property
-//     const header = (
-//         <img style={{height: 150}} alt="Card" src={`http://localhost:8080/uploads/${property.imgs[0]}`} />
-//     );
-//     const footer = (
-//         <>
-//             <Button label="Save" icon="pi pi-check" />
-//             <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />
-//         </>
-//     );
-
-//     return (
-//         <div className="card flex justify-content-center" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}
-//         >
-//             <Card title={address} style={{ width: 320, margin: 10 }} subTitle={type} footer={footer} header={header} className="md:w-25rem">
-//                 {/* <p className="m-0">
-//                     {price} ₪
-//                     <br />
-//                     {size} מ"ר
-//                 </p> */}
-//             </Card>
-//         </div>
-//     )
-// }
-
 import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';
@@ -46,6 +12,7 @@ import { Avatar } from 'primereact/avatar';
 export default function PropertyOnCard(props) {
     const { property } = props;
     const { address, type, price, size, imgs } = property;
+    console.log(imgs)
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/property/${property._id}`, { state: { property } }); // נווט לדף הנכס עם ה-ID המתאים
@@ -90,7 +57,7 @@ export default function PropertyOnCard(props) {
                 onClick={handleClick} 
             >
                 <Typography level="title-lg" textColor="#fff">
-                    {price} ₪
+                 ₪ {Number(price).toLocaleString()}
                 </Typography>
                 <Typography
                     startDecorator={<LocationOnRoundedIcon />}

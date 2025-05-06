@@ -83,9 +83,9 @@ export default function Add() {
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Header II">
+                <StepperPanel header="פרטי הנכס">
                     <div className="flex flex-column h-12rem">
-                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
+                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
                     <br />
                     <ChooseTags selected={tags} setSelected={setTags} />
@@ -95,7 +95,7 @@ export default function Add() {
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Header III">
+                <StepperPanel header="נתונים מספריים">
                     <div className="flex flex-column h-12rem">
                         <NumericalData
                             rooms={rooms} setRooms={setRooms}
@@ -110,9 +110,9 @@ export default function Add() {
                     </div>
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Header III">
+                <StepperPanel header="תאור הנכס">
                     <div className="flex flex-column h-12rem">
-                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
                     <br />
                     <MoreDetails
@@ -127,9 +127,9 @@ export default function Add() {
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Header IV">
+                <StepperPanel header="הוספת תמונות">
                     <div className="flex flex-column h-12rem">
-                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
                     <AddImages formData={imgs} setFormData={setImgs} />
                     <div className="flex pt-4 justify-content-end" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
@@ -137,12 +137,13 @@ export default function Add() {
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Header VI">
+                <StepperPanel header="בקשת פרסום">
                     <div className="flex flex-column h-12rem">
-                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                        <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
-                    <button onClick={(e) => handleSubmit(e)}>Submit</button>
-                    <br />
+                    <div style={{display: 'flex', justifyContent: 'center', margin: '10%'}} >
+                    <Button onClick={(e) => handleSubmit(e)}>פרסם נכס</Button>
+                    </div><br />
                     <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
                     </div>

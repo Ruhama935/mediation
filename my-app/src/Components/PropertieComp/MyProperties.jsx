@@ -26,12 +26,13 @@ const MyProperties = () => {
                 return (
                     // <span style={{ border: '1px solid black', padding: '20px', borderRadius: '10px' }}>
                     <PropertyOnCard property={property}>
-                        {localStorage.getItem('userRole') === 'user' && <DeleteToUser id={property._id} />}
-                        {localStorage.getItem('userRole') === 'admin' && <DeleteProperty style={{position: 'realative', }} id={property._id} />}
+                        {/* {JSON.parse(localStorage.getItem('user')).permissions === 'user' && <DeleteToUser id={property._id} />} */}
+                        {/* {JSON.parse(localStorage.getItem('user')).permissions === 'admin' && <DeleteProperty style={{position: 'realative', }} id={property._id} />} */}
                         {/* </span> */} 
                     </PropertyOnCard>
                 )
             })}
+            
         </div >
     )
 }

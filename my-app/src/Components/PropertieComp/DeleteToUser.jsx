@@ -1,8 +1,9 @@
-import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, Button, DialogContent } from '@mui/joy';
+import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
 import React, { useState, useContext, useEffect } from 'react';
 // import PostContext from './PostContext';
 // import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
 import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
+import { Button } from 'primereact/button';
 
 function DeleteToUser({ id }) {
     // const { post, setPosts } = useContext(PostContext)
@@ -18,10 +19,9 @@ function DeleteToUser({ id }) {
     return (
         <>
             <Button
-                variant="outlined"
-                color="neutral"
+                style={{ margin: '0.5rem' }}
                 onClick={() => setOpen(true)}>
-                <i className="pi pi-trash" style={{ fontSize: '1rem', color: '#fc45a6b0' }}></i>
+                מחק נכס
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>

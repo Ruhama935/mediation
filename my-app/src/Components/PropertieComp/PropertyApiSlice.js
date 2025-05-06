@@ -25,17 +25,17 @@ const PropertyApiSlice = apiSlice.injectEndpoints({
             })
         }),
         updateProperies: build.mutation({
-            query: (newProperty) => ({
-                url: `/api/property/${newProperty.id}`,
+            query: ({formData, id}) => ({
+                url: `/api/property/${id}`,
                 method: 'PUT',
-                body: newProperty
+                body: formData
             })
         }),
         updateStatusProperies: build.mutation({
-            query: (newProperty) => ({
-                url: `/api/property/updateStatus/${newProperty.id}`,
+            query: ({id, status}) => ({
+                url: `/api/property/updateStatus/${id}`,
                 method: 'PUT',
-                body: {status: newProperty.status}
+                body: {status}
             })
         }),
         deleteProperies: build.mutation({
@@ -51,7 +51,12 @@ const PropertyApiSlice = apiSlice.injectEndpoints({
                 body: email
             })
         }),
+        getUserDetails: build.query({
+            query: (propertyId) => ({
+                url: `/api/property/user-details/${propertyId}`,
+            })
+        }),
     })
 })
 
-export const {useCreatePropertyMutation, useGetProperiesQuery, useGetMyProperiesQuery, useDeleteProperiesMutation, useGetAwaitingProperiesQuery, useUpdateProperiesMutation, useUpdateStatusProperiesMutation, useSendEmailMutation} = PropertyApiSlice
+export const {useCreatePropertyMutation, useGetProperiesQuery, useGetMyProperiesQuery, useDeleteProperiesMutation, useGetAwaitingProperiesQuery, useUpdateProperiesMutation, useUpdateStatusProperiesMutation, useSendEmailMutation, useGetUserDetailsQuery} = PropertyApiSlice
