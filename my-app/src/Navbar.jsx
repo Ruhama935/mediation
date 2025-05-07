@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import 'primereact/resources/themes/saga-blue/theme.css'; // Theme של PrimeReact
 import 'primereact/resources/primereact.min.css';         // בסיס של רכיבי PrimeReact
 import 'primeicons/primeicons.css';  
-import reducer from './Components/featurs/auth/authSlice';
+import reducer from './Components/auth/authSlice';
 import { useSelector } from 'react-redux';
-import UserMenu from './Components/featurs/auth/UserMenu';
+import UserMenu from './Components/auth/UserMenu';
 
 const Navbar = () => {
   const location = useLocation(); // קבלת הנתיב הנוכחי

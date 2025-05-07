@@ -15,7 +15,7 @@ export default function PropertyOnCard(props) {
     console.log(imgs)
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate(`/property/${property._id}`, { state: { property } }); // נווט לדף הנכס עם ה-ID המתאים
+        navigate(`/property/${property._id}`, { state: { property } });
     }
 
     return (<>
@@ -25,12 +25,14 @@ export default function PropertyOnCard(props) {
         }}
         >
             {property.status === 'Sold' &&
-                <Avatar label='נמכר' size="xlarge" shape="circle" style={{zIndex: 2, 
-                    backgroundColor: 'rgb(255 255 255 / 50%)', 
+                <Avatar label='נמכר' size="xlarge" shape="circle" style={{
+                    zIndex: 2,
+                    backgroundColor: 'rgb(255 255 255 / 50%)',
                     fontSize: '20px',
                     fontWeight: 'bold',
                     color: 'rgb(83 83 90)',
-                    padding: '46px' }} />
+                    padding: '46px'
+                }} />
             }
             <CardCover >
                 <img
@@ -45,7 +47,6 @@ export default function PropertyOnCard(props) {
             </CardCover>
             <CardCover
                 sx={{
-                    // zIndex: 2 ,
                     background:
                         'linear-gradient(to top, rgba(0,0,0,0.2), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 300px)',
                 }}
@@ -54,10 +55,10 @@ export default function PropertyOnCard(props) {
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             />
             <CardContent sx={{ justifyContent: 'flex-end' }}
-                onClick={handleClick} 
+                onClick={handleClick}
             >
                 <Typography level="title-lg" textColor="#fff">
-                 ₪ {Number(price).toLocaleString()}
+                    ₪ {Number(price).toLocaleString()}
                 </Typography>
                 <Typography
                     startDecorator={<LocationOnRoundedIcon />}
@@ -66,7 +67,7 @@ export default function PropertyOnCard(props) {
                     {address}
                 </Typography>
             </CardContent>
-           
+
         </Card>
 
     </>

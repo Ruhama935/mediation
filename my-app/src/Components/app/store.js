@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import apiSlice from './apiSlice';
-import authSliceReducer from '../featurs/auth/authSlice'
+import authSliceReducer from '../auth/authSlice'
 import PropertySliceReducer from '../PropertieComp/PropertySlice'
 
 const store = configureStore({

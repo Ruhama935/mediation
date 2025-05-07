@@ -6,13 +6,20 @@ import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
 import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
 import '../ButtonCss.css'
 import { useDeleteRecommendationMutation } from './RecommendationApiSlice';
+import { useNavigate } from 'react-router-dom';
 
 function DeleteRec({ id }) {
     const [open, setOpen] = useState(false);
     const [deleteFunc, { data, error, isLoading, isSuccess }] = useDeleteRecommendationMutation()
-    // const [sendFunc] = useSendEmailMutation()
-
-
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (isSuccess) {
+            console.log("success")
+            alert("ההמלצה נמחקה בהצלחה")
+            navigate('/recommendations')
+        }
+    }
+    , [isSuccess])
     const handleChange = () => {
         deleteFunc(id)
     }

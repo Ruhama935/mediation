@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import { Avatar } from 'primereact/avatar';
+import { useNavigate } from 'react-router-dom';
 
 
 const ImageGallery = ({ images = [] }) => {
   const baseUrl = 'http://localhost:8080/uploads/';
-
+  const navigate = useNavigate();
   const displayedImages = images.slice(0, 6);
   const [mainImage, setMainImage] = useState(displayedImages[0]);
   if (displayedImages.length === 0) return null;
 
+  const handleClick = () => {
+    navigate(`/images`, { state: { images } }); 
+  }
   return (
     <div style={{
       display: 'flex',
-      // justify-content: flex-start
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       gap: '20px',
       flexWrap: 'wrap',
       marginTop: '20px',
     }}>
-      {/* התמונה הראשית */}
       <img
         src={`${baseUrl}${mainImage}`}
         alt="main"
+        onClick={handleClick}
         style={{
           width: '500px',
           height: '400px',
@@ -31,15 +34,10 @@ const ImageGallery = ({ images = [] }) => {
           objectFit: 'cover',
           transition: 'all 0.3s ease-in-out',
           maxWidth: '90vw',
-          marginRight: '30px'
+          marginRight: '30px',
+          cursor: "pointer"
         }}
       />
-
-      {/* {property.status === 'Sold' && */}
-        
-      
-
-      {/* התמונות המשניות */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: window.innerWidth < 600 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
@@ -53,18 +51,15 @@ const ImageGallery = ({ images = [] }) => {
             key={index}
             src={`${baseUrl}${img}`}
             alt={`thumb-${index}`}
-            onClick={() => setMainImage(img)}
+            onClick={handleClick}
             style={{
               width: '200px',
               height: '150px',
               borderRadius: '8px',
               objectFit: 'cover',
               cursor: 'pointer',
-              boxShadow: mainImage === img
-                ? '0 0 10px 3px #007bff'
-                : '0 2px 6px rgba(0, 0, 0, 0.2)',
+              boxShadow:'0 2px 6px rgba(0, 0, 0, 0.2)',
               transition: 'all 0.3s ease',
-              transform: mainImage === img ? 'scale(1.05)' : 'scale(1)',
               margin: '10px',
             }}
           />

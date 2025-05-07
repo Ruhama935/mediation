@@ -2,26 +2,30 @@ import { DialogTitle, Modal, ModalDialog } from '@mui/joy';
 
 import { Dropdown } from 'primereact/dropdown';
 import { ListBox } from 'primereact/listbox';
-import '../ButtonCss.css'
+import '../../ButtonCss.css'
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
-import { useEffect, useState } from 'react';
-// import { useUpdateStatusProperiesMutation } from './PropertyApiSlice';
-import { useUpdateStatusRecommendationMutation } from './RecommendationApiSlice';
+import { useEffect, useRef, useState } from 'react';
+import { useUpdateStatusProperiesMutation } from '../PropertyApiSlice';
+import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
 
-export default function StatusRec({ id }) {
+export default function Status({ id }) {
     const [status, setStatus] = useState(null)
-    const [update, { isSuccess }] = useUpdateStatusRecommendationMutation()
+    const [update, { isSuccess }] = useUpdateStatusProperiesMutation()
     const statuss = [
         { name: 'ממתין לאישור', code: 'Awaiting confirmation' },
         { name: 'מאושר', code: 'Confirmed' },
+        { name: 'נמכר', code: 'Sold' }
     ];
-
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (isSuccess) {
             console.log("success")
+            alert("סטטוס נכס עודכן בהצלחה")
+            navigate('/properties')
         }
     }, [isSuccess])
 
@@ -37,7 +41,7 @@ export default function StatusRec({ id }) {
                 variant="outlined"
                 color="neutral"
                 onClick={() => setOpen(true)}>
-                עדכן
+                עדכן סטטוס נכס
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>

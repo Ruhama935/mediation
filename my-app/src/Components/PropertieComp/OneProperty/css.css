@@ -16,12 +16,6 @@
     font-weight: bold;
   }
   
-  /* .gallery-images {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-  }
-   */
   /* רספונסיביות לטלפונים */
   @media (max-width: 768px) {
     .gallery-container {

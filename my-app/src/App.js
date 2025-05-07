@@ -1,12 +1,8 @@
 // App.jsx
-import { ChakraProvider } from '@chakra-ui/react'; // זה ה-provider של chakra
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
-import Articles from './Components/ArticleComps/ArticlesPage';
 import Properties from './Components/PropertieComp/Properties';
-import Login from './Components/featurs/auth/Login';
-import Register from './Components/featurs/auth/Register';
 import AddImages from './Components/PropertieComp/AddProperties/AddImages';
 import MyProperties from './Components/PropertieComp/MyProperties';
 import Add from './Components/PropertieComp/AddProperties/Add';
@@ -14,17 +10,16 @@ import PropertyOnCard from './Components/PropertieComp/MyProperties';
 import Galleria from './Components/PropertieComp/OneProperty/Gallerias';
 import Gallerias from './Components/PropertieComp/OneProperty/Gallerias';
 import PropertyOne from './Components/PropertieComp/OneProperty/PropertyOne';
-import Status from './Components/PropertieComp/Status';
-import AuthForms from './Components/featurs/auth/AuthForms';
+import Status from './Components/PropertieComp/OneProperty/Status';
+import AuthForms from './Components/auth/AuthForms';
 import AwaitingProperies from './Components/PropertieComp/AwaitingProperies';
 import Prev from './Components/PropertieComp/AddProperties/Prev';
-import UpdateProperty from './Components/PropertieComp/UpdateProperty';
+import UpdateProperty from './Components/PropertieComp/OneProperty/UpdateProperty';
 import { useSelector } from 'react-redux';
-import UserMenu from './Components/featurs/auth/UserMenu';
+import UserMenu from './Components/auth/UserMenu';
 import Home from './Components/Home';
 import "./App.css"
-import Recommendation from './Components/recommendations/Recommendation';
-import Recommendations from './Components/recommendations/Recommendations';
+import Recommendations from './Components/RecComponent/Recommendations';
 import ContactDetails from './Components/ContactDetails/ContactDetails';
 
 // דפי דמו
@@ -45,14 +40,12 @@ function App() {
         <Routes>
           <Route path="/auth" element={<AuthForms />} />
           <Route path="/" element={<Home />} />
-          {/* <Route path="/about" element={<Status status={"Confirmed"} />} /> */}
+          <Route path="/images" element={<Gallerias />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/Add-prev" element={<Prev />} />
           <Route path="/Add" element={<Add />} />
           <Route path="/myProperties" element={<PropertyOnCard />} />
-          <Route path="/recommendations" element={<Recommendations
-          />
-          } />
+          <Route path="/recommendations" element={<Recommendations/>} />
           <Route path="/contact" element={<ContactDetails />} />
           <Route path="/property/:id" element={<PropertyOne />} />
           <Route path="/property/update/:id" element={<UpdateProperty />} />

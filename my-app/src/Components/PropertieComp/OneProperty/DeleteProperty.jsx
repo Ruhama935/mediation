@@ -1,16 +1,24 @@
 import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
 import { Button } from 'primereact/button';
-import React, { useState, useContext, useEffect } from 'react';
-// import PostContext from './PostContext';
-import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
-import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
-import '../ButtonCss.css'
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useDeleteProperiesMutation } from '../PropertyApiSlice';
+import { useSendEmailMutation } from '../PropertyApiSlice';
+import '../../ButtonCss.css'
+import { useNavigate } from 'react-router-dom';
 
 function DeleteProperty({ id }) {
     const [open, setOpen] = useState(false);
     const [deleteFunc, { data, error, isLoading, isSuccess }] = useDeleteProperiesMutation()
     const [sendFunc] = useSendEmailMutation()
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if (isSuccess) {
+            console.log("success")
+            alert("הנכס נמחק בהצלחה")
+            navigate('/properties')
+        }
+    }, [isSuccess])
 
     const handleChange = () => {
         deleteFunc(id)
@@ -24,13 +32,15 @@ function DeleteProperty({ id }) {
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>
                     <DialogTitle>האם אתה בטוח שאתה רוצה למחוק את הדירה?</DialogTitle>
-                    <Button onClick={(e) => {
-                        setOpen(false)
-                        handleChange()
-                    }}>
+                    <Button
+                        className='button'
+                        onClick={(e) => {
+                            setOpen(false)
+                            handleChange()
+                        }}>
                         כן
                     </Button>
-                    <Button variant="outlined" onClick={() => setOpen(false)}>לא</Button>
+                    <Button className='button' variant="outlined" onClick={() => setOpen(false)}>לא</Button>
                 </ModalDialog>
             </Modal>
         </>

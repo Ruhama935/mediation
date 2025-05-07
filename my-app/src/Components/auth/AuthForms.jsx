@@ -73,7 +73,7 @@ function AuthForms() {
           <TextField label="אימייל" name="email" type="email" value={formData.email} onChange={handleChange} fullWidth />
           <TextField label="סיסמה" name="password" type="password" value={formData.password} onChange={handleChange} fullWidth />
 
-          <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>
+          <Button  variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>
             {tab === 0 ? 'התחבר' : 'הירשם'}
           </Button>
         </Box>

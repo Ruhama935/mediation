@@ -1,64 +1,33 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
-import 'react-image-gallery/styles/css/image-gallery.css';
-// import 'primereact/resources/themes/saga-blue/theme.css'; // theme
-// import 'primereact/resources/primereact.min.css'; // core css
-// import { PhotoService } from './service/PhotoService';
+import { Button } from "primereact/button";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Gallerias(props) {
-    const { images } = props;
-    const galleria = useRef(null);
+export default function Gallerias() {
+    const nevigate = useNavigate();
+    const location = useLocation();
+    const { images = [] } = location.state;
 
-    const responsiveOptions = [
-        {
-            breakpoint: '1500px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '1024px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
-    ];
-
-    const processedImages = useMemo(() => {
-        if (!images || images.length === 0) return [];
-
-        // אם זה סתם כתובות (string), נהפוך לאובייקט נכון
-        if (typeof images[0] === 'string') {
-            return images.map(url => ({
-                itemImageSrc: `http://localhost:8080/uploads/${url}`,
-                thumbnailImageSrc: `http://localhost:8080/uploads/${url}`,
-                alt: 'Image'
-            }));
-        }
-        // אחרת, נניח שכבר זה אובייקט נכון
-        return images;
-    }, [images]);
-
-    const itemTemplate = (item) => {
-        return <img src={item.itemImageSrc} alt={item.alt}  sx={{ minHeight: '280px', width: 320, margin: 5 ,overflow: 'hidden' ,position: 'relative'}} />;
+    const handleChange = () => {
+        nevigate(-1)
     }
-
-    const thumbnailTemplate = (item) => {
-        return <img src={item.thumbnailImageSrc} alt={item.alt} sx={{ minHeight: '280px', width: 320, margin: 5 ,overflow: 'hidden' ,position: 'relative'}} />;
-    }
-
-    return (
-        <div className="card flex justify-content-center">
-            <Galleria ref={galleria} value={processedImages} responsiveOptions={responsiveOptions} numVisible={9} style={{ maxWidth: '50%' }} 
-                circular fullScreen showItemNavigators item={itemTemplate} thumbnail={thumbnailTemplate} />
-
-            <Button label="Show" icon="pi pi-external-link" onClick={() => galleria.current.show()} />
+    return(
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', padding: '3% 15% 0% 12%' }}>
+            {images.map((image, index) => (
+                <img
+                    key={index}
+                    src={`http://localhost:8080/uploads/${image}`}
+                    alt={`Image ${index + 1}`}
+                    style={{
+                        width: index%3==0 ?'90%':'43%',
+                        height: '400px',
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+                        transition: 'all 0.3s ease',
+                        margin: '15px',
+                    }}
+                />
+            ))}
+            <Button className="button" label="סגור גלריה" onClick={handleChange} style={{ margin: '20px' }} />
         </div>
     )
 }
-        

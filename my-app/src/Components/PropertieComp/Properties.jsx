@@ -2,9 +2,9 @@ import { useGetProperiesQuery } from './PropertyApiSlice'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setProperties } from './PropertySlice'
-import UpdateProperty from './UpdateProperty'
+import UpdateProperty from './OneProperty/UpdateProperty'
 import Gallerias from './OneProperty/Gallerias'
-import PropertyOnCard from './PropertyOnCard'
+import PropertyOnCard from './OneProperty/PropertyOnCard'
 
 const Properties = () => {
     const { data, error, isLoading, isSuccess } = useGetProperiesQuery()

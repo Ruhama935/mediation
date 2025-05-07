@@ -2,56 +2,56 @@ import React, { useEffect, useRef, useState } from "react";
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
 import { Button } from 'primereact/button';
-import ChooseTags from './ChooseTags';
-import Type from "./Type";
-import TypeOfProperty from "./TypeOfProperty";
-import MoreDetails from "./MoreDetails";
-import AddImages from "./AddImages";
-import { useCreatePropertyMutation } from '../PropertyApiSlice'
+import ChooseTags from '../AddProperties/ChooseTags';
+import Type from "../AddProperties/Type";
+import TypeOfProperty from "../AddProperties/TypeOfProperty";
+import MoreDetails from "../AddProperties/MoreDetails";
+import AddImages from "../AddProperties/AddImages";
 import { useDispatch } from 'react-redux'
 import { addMyProperty } from '../PropertySlice'
-import NumericalData from "./NumericalData";
-import { useNavigate } from "react-router-dom";
+import NumericalData from "../AddProperties/NumericalData";
+import { useUpdateProperiesMutation } from "../PropertyApiSlice";
+import UpdatePrevImgs from "./UpdatePrevImgs";
+import { useLocation, useNavigate } from "react-router-dom";
+import '../../ButtonCss.css'
 
-export default function Add() {
+export default function UpdateProperty() {
+    const location = useLocation();
+    const { property } = location.state;
     const stepperRef = useRef(null);
-    const [tags, setTags] = useState([]);
-    const [condition, setCondition] = useState('');
-    const [type, setType] = useState('');
-    const [rooms, setRooms] = useState(1);
-    const [floor, setFloor] = useState(1);
-    const [buildingFloor, setBuildingFloor] = useState(1);
-    const [size, setSize] = useState(50);
-    const [price, setPrice] = useState(1000000);
-    const [description, setDescription] = useState('');
-    const [comments, setComments] = useState('');
-    const [date, setDate] = useState(null);
-    const [address, setAddress] = useState('');
+    const [tags, setTags] = useState(property.tags);
+    const [condition, setCondition] = useState(property.condition);
+    const [type, setType] = useState(property.type);
+    const [rooms, setRooms] = useState(property.rooms);
+    const [floor, setFloor] = useState(property.floor);
+    const [buildingFloor, setBuildingFloor] = useState(property.buildingFloor);
+    const [size, setSize] = useState(property.size);
+    const [price, setPrice] = useState(property.price);
+    const [description, setDescription] = useState(property.description);
+    const [comments, setComments] = useState(property.comments);
+    const [date, setDate] = useState(property.date);
+    const [address, setAddress] = useState(property.address);
     const [imgs, setImgs] = useState([]);
-    const [planImg, setPlanImg] = useState(null);
-    const [flag, setFlag] = useState(false);
-    const [createFunc, { isError, isLoading, data, error, isSuccess }] = useCreatePropertyMutation()
+    const [prevImgs, setPrevImgs] = useState(property.imgs);
+
+    const [createFunc, { isError, isLoading, data, error, isSuccess }] = useUpdateProperiesMutation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
         if (isSuccess) {
             console.log(data)
-            dispatch(addMyProperty(data))            
-            alert("הנכס נוסף בהצלחה")
+            alert("הנכס עודכן בהצלחה")
             navigate('/myproperties')
         }
     }, [isSuccess])
 
     const handleSubmit = (e) => {
         const formData = new FormData()
-        console.log(imgs)
-        // formData.append("imgs", planImg)
-        // formData.append("Images", imgs)
+        console.log(price)
         imgs.forEach((img) => {
-            formData.append('Images', img); // שוב ושוב לאותו שם
-          });
-        formData.append("length", imgs.length)
+            formData.append('Images', img);
+        });
         formData.append("tags", JSON.stringify(tags))
         formData.append("condition", condition)
         formData.append("type", type)
@@ -64,11 +64,12 @@ export default function Add() {
         formData.append("comments", comments)
         formData.append("date", date)
         formData.append("address", address)
-
-        // formData.append("Images", JSON.stringify(imgs))
+        prevImgs.forEach(img => {
+            formData.append('prevImgs', img);
+        });
         e.preventDefault()
         console.log(formData)
-        createFunc(formData)
+        createFunc({ formData, id: property._id })
         console.log(data)
     }
 
@@ -84,7 +85,7 @@ export default function Add() {
                     <TypeOfProperty selected={type} setSelected={setType} selected1={condition} setSelected1={setCondition} />
                     <br />
                     <div className="flex pt-4 justify-content-end" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="פרטי הנכס">
@@ -96,7 +97,7 @@ export default function Add() {
                     <br />
                     <div className="flex pt-4 justify-content-between" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="נתונים מספריים">
@@ -108,10 +109,10 @@ export default function Add() {
                             size={size} setSize={setSize}
                             price={price} setPrice={setPrice}
                         ></NumericalData>
-                         <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
-                        <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
-                    </div>
+                        <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
+                            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
+                            <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        </div>
                     </div>
                 </StepperPanel>
                 <StepperPanel header="תאור הנכס">
@@ -128,25 +129,29 @@ export default function Add() {
                     <br />
                     <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="הוספת תמונות">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
+                    <UpdatePrevImgs prevImgs={prevImgs} setPrevImgs={setPrevImgs} />
+                    <br />
                     <AddImages formData={imgs} setFormData={setImgs} />
+                    <br />
+                    {/* <AddImages formData={imgs} setFormData={setImgs} prevImgs={prevImgs} setPrevImgs={setPrevImgs} /> */}
                     <div className="flex pt-4 justify-content-end" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="בקשת פרסום">
+                <StepperPanel header="בקשת עדכון">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
-                    <div style={{display: 'flex', justifyContent: 'center', margin: '10%'}} >
-                    <Button onClick={(e) => handleSubmit(e)}>פרסם נכס</Button>
+                    <div style={{ display: 'flex', justifyContent: 'center', margin: '10%' }} >
+                        <Button className="button" onClick={(e) => handleSubmit(e)}>עדכן פרטי נכס</Button>
                     </div><br />
                     <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />

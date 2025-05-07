@@ -28,7 +28,7 @@ export default function ContactDetails() {
     return (
         <>
             <div className="card flex justify-content-center" style={{
-                position: 'absolute',
+                // position: 'absolute',
                 display: 'flex',
                 flexWrap: 'wrap',
                 flexDirection: 'column',
@@ -39,7 +39,7 @@ export default function ContactDetails() {
                 paddingBottom: '40px',
                 height: '100vh',
                 width: '100%',
-                top: 0,
+                // top: 0,
                 zIndex: '-1'
             }}>
                 <div style={{ marginTop: '17vh', color: ' rgb(237, 191, 109)', direction: 'rtl', fontSize: '17px' }}>

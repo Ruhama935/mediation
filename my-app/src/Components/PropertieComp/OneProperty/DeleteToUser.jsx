@@ -1,17 +1,22 @@
 import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
-import React, { useState, useContext, useEffect } from 'react';
-// import PostContext from './PostContext';
-// import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
-import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useSendEmailMutation } from '../PropertyApiSlice';
 import { Button } from 'primereact/button';
-import '../ButtonCss.css'
+import '../../ButtonCss.css'
+import { Toast } from 'primereact/toast';
 
 function DeleteToUser({ id }) {
-    // const { post, setPosts } = useContext(PostContext)
     const [open, setOpen] = useState(false);
-    // const [deleteFunc, { data, error, isLoading, isSuccess }] = useDeleteProperiesMutation()
-    const [sendFunc] = useSendEmailMutation()
+    const [sendFunc, {isSuccess}] = useSendEmailMutation()
+    const toast = useRef(null);
 
+
+    useEffect(() => {
+        if (isSuccess) {
+            console.log("success")
+            toast.current.show({ severity: 'success', summary: 'Success', detail: 'ההודעה נשלחה בהצלחה', life: 3000 });
+        }
+    }, [isSuccess])
 
     const handleChange = () => {
         sendFunc({ propertyId: id, type: "מישהו רוצה למחוק דירה" })
@@ -19,6 +24,7 @@ function DeleteToUser({ id }) {
 
     return (
         <>
+            <Toast ref={toast} />
             <Button className='button'
                 style={{ margin: '0.5rem' }}
                 onClick={() => setOpen(true)}>

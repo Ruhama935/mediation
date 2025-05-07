@@ -2,11 +2,11 @@ import { useGetMyProperiesQuery } from './PropertyApiSlice'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setMyProperties } from './PropertySlice'
-import PropertyOnCard from './PropertyOnCard'
+import PropertyOnCard from './OneProperty/PropertyOnCard'
 import { Galleria } from 'primereact/galleria'
 import Gallerias from './OneProperty/Gallerias'
-import DeleteToUser from './DeleteToUser'
-import DeleteProperty from './DeleteProperty'
+import DeleteToUser from './OneProperty/DeleteToUser'
+import DeleteProperty from './OneProperty/DeleteProperty'
 
 const MyProperties = () => {
     const { data, error, isLoading, isSuccess } = useGetMyProperiesQuery()
@@ -24,12 +24,7 @@ const MyProperties = () => {
         >
             {data && isSuccess && data.map((property) => {
                 return (
-                    // <span style={{ border: '1px solid black', padding: '20px', borderRadius: '10px' }}>
-                    <PropertyOnCard property={property}>
-                        {/* {JSON.parse(localStorage.getItem('user')).permissions === 'user' && <DeleteToUser id={property._id} />} */}
-                        {/* {JSON.parse(localStorage.getItem('user')).permissions === 'admin' && <DeleteProperty style={{position: 'realative', }} id={property._id} />} */}
-                        {/* </span> */} 
-                    </PropertyOnCard>
+                    <PropertyOnCard property={property}/>
                 )
             })}
             

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetUserDetailsQuery } from "./PropertyApiSlice";
+import { useGetUserDetailsQuery } from "../PropertyApiSlice";
 
 export default function UserDetails({ id }) {
     const [userDetails, setUserDetails] = useState(null)
