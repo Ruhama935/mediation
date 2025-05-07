@@ -6,15 +6,15 @@ import '../ButtonCss.css'
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
 import { useEffect, useState } from 'react';
-import { useUpdateStatusProperiesMutation } from './PropertyApiSlice';
+// import { useUpdateStatusProperiesMutation } from './PropertyApiSlice';
+import { useUpdateStatusRecommendationMutation } from './RecommendationApiSlice';
 
-export default function Status({ id }) {
+export default function StatusRec({ id }) {
     const [status, setStatus] = useState(null)
-    const [update, { isSuccess }] = useUpdateStatusProperiesMutation()
+    const [update, { isSuccess }] = useUpdateStatusRecommendationMutation()
     const statuss = [
         { name: 'ממתין לאישור', code: 'Awaiting confirmation' },
         { name: 'מאושר', code: 'Confirmed' },
-        { name: 'נמכר', code: 'Sold' }
     ];
 
     const [open, setOpen] = useState(false)
@@ -37,7 +37,7 @@ export default function Status({ id }) {
                 variant="outlined"
                 color="neutral"
                 onClick={() => setOpen(true)}>
-                עדכן סטטוס נכס
+                עדכן
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>

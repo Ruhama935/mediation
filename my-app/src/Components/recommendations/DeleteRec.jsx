@@ -5,11 +5,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
 import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
 import '../ButtonCss.css'
+import { useDeleteRecommendationMutation } from './RecommendationApiSlice';
 
-function DeleteProperty({ id }) {
+function DeleteRec({ id }) {
     const [open, setOpen] = useState(false);
-    const [deleteFunc, { data, error, isLoading, isSuccess }] = useDeleteProperiesMutation()
-    const [sendFunc] = useSendEmailMutation()
+    const [deleteFunc, { data, error, isLoading, isSuccess }] = useDeleteRecommendationMutation()
+    // const [sendFunc] = useSendEmailMutation()
 
 
     const handleChange = () => {
@@ -19,22 +20,24 @@ function DeleteProperty({ id }) {
         <>
             <Button className='button'
                 style={{ margin: '0.5rem' }}
-                onClick={() => setOpen(true)}>מחק נכס
+                onClick={() => setOpen(true)}>מחק 
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>
-                    <DialogTitle>האם אתה בטוח שאתה רוצה למחוק את הדירה?</DialogTitle>
-                    <Button onClick={(e) => {
+                    <DialogTitle>האם אתה בטוח שאתה רוצה למחוק את ההמלצה?</DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                    <Button className='button' onClick={(e) => {
                         setOpen(false)
                         handleChange()
                     }}>
                         כן
                     </Button>
-                    <Button variant="outlined" onClick={() => setOpen(false)}>לא</Button>
+                    <Button className='button' variant="outlined" onClick={() => setOpen(false)}>לא</Button>
+                    </div>
                 </ModalDialog>
             </Modal>
         </>
     )
 }
 
-export default DeleteProperty;
+export default DeleteRec;

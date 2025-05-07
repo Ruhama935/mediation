@@ -20,13 +20,18 @@ import AwaitingProperies from './Components/PropertieComp/AwaitingProperies';
 import Prev from './Components/PropertieComp/AddProperties/Prev';
 import UpdateProperty from './Components/PropertieComp/UpdateProperty';
 import { useSelector } from 'react-redux';
-
+import UserMenu from './Components/featurs/auth/UserMenu';
+import Home from './Components/Home';
+import "./App.css"
+import Recommendation from './Components/recommendations/Recommendation';
+import Recommendations from './Components/recommendations/Recommendations';
+import ContactDetails from './Components/ContactDetails/ContactDetails';
 
 // דפי דמו
-const Home = () => <h1>דף הבית</h1>;
+// const Home = () => <h1>דף הבית</h1>;
 const About = () => <h1>אודות</h1>;
 const Services = () => <h1>שירותים</h1>;
-const Recommendations = () => <h1>המלצות</h1>;
+// const Recommendations = () => <h1>המלצות</h1>;
 const Contact = () => <h1>צור קשר</h1>;
 
 function App() {
@@ -36,20 +41,24 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
+        {/* <UserMenu/> */}
         <Routes>
-        <Route path="/" element={<AuthForms/>} />
-          <Route path="/about" element={<Status status={"Confirmed"}/>} />
+          <Route path="/auth" element={<AuthForms />} />
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/about" element={<Status status={"Confirmed"} />} /> */}
           <Route path="/properties" element={<Properties />} />
           <Route path="/Add-prev" element={<Prev />} />
           <Route path="/Add" element={<Add />} />
           <Route path="/myProperties" element={<PropertyOnCard />} />
-          <Route path="/recommendations" element={<Recommendations />} />
-          <Route path="/contact" element={<AddImages />} />
+          <Route path="/recommendations" element={<Recommendations
+          />
+          } />
+          <Route path="/contact" element={<ContactDetails />} />
           <Route path="/property/:id" element={<PropertyOne />} />
           <Route path="/property/update/:id" element={<UpdateProperty />} />
           {userLoggedIn ? userLoggedIn.permissions === 'admin' && (
             <Route path="/AwaitingProperies" element={<AwaitingProperies />} />
-          ): (<></>)}
+          ) : (<></>)}
         </Routes>
       </BrowserRouter>
       {/* <Register /> */}

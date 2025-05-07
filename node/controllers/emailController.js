@@ -17,7 +17,7 @@ const sendEmail = async (req, res) => {
     const mailOptions = {
         from: "onboarding@resend.dev", 
         to: "g025871176@gmail.com", 
-        subject: `הודעה מהאתר: ${type} - address:${address} id:${propertyId}`,
+        subject: `הודעה מהאתר: ${type} - ${address?address:``} ${propertyId?`id: ${propertyId}`:``}`,
         text: `שם: ${name || user.name}\nאימייל: ${email || user.email} \nמס' פלאפון:${phone || user.phone}\n\n${message?message:""}`
     };
 

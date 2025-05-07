@@ -5,28 +5,32 @@ import 'primereact/resources/primereact.min.css';         // בסיס של רכ�
 import 'primeicons/primeicons.css';  
 import reducer from './Components/featurs/auth/authSlice';
 import { useSelector } from 'react-redux';
+import UserMenu from './Components/featurs/auth/UserMenu';
 
 const Navbar = () => {
   const location = useLocation(); // קבלת הנתיב הנוכחי
   const navigate = useNavigate(); // פונקציה לניווט
   const userLoggedIn = useSelector((state) => state.auth.user);
 
+  const end = (
+    <UserMenu/>
+  )
 
   const items = [
     { label: 'Home', icon: 'pi pi-home', url: '/', active: location.pathname === '/' },
-    { label: 'About', icon: 'pi pi-info-circle', url: '/about', active: location.pathname === '/about' },
+    // { label: 'About', icon: 'pi pi-info-circle', url: '/about', active: location.pathname === '/about' },
     { label: 'Properties', icon: 'pi pi-building', url: '/properties', active: location.pathname === '/properties' },
     { label: 'Add new property', icon: 'pi pi-cog', url: '/Add-prev', active: location.pathname === '/Add-prev' },
-    // userLoggedIn &&
-    //   { label: 'myProperties', icon: 'pi pi-file', url: '/myProperties', active: location.pathname === '/myProperties' },
+    userLoggedIn &&
+      { label: 'myProperties', icon: 'pi pi-file', url: '/myProperties', active: location.pathname === '/myProperties' },
     { label: 'Recommendations', icon: 'pi pi-star', url: '/recommendations', active: location.pathname === '/recommendations' },
     { label: 'Contact', icon: 'pi pi-envelope', url: '/contact', active: location.pathname === '/contact' },
-    // userLoggedIn && userLoggedIn.permissions === 'admin' &&
-    //   { label: 'AwaitingProperies', icon: 'pi pi-clock', url: '/AwaitingProperies', active: location.pathname === '/AwaitingProperies' },
-  ];
+    userLoggedIn && userLoggedIn.permissions === 'admin' &&
+      { label: 'AwaitingProperies', icon: 'pi pi-clock', url: '/AwaitingProperies', active: location.pathname === '/AwaitingProperies' },
+  ].filter(Boolean);
 
   return (
-    <Menubar 
+    <Menubar end={end}
       model={items.map(item => ({
         ...item,
         command: () => navigate(item.url), // ניווט בעת לחיצה

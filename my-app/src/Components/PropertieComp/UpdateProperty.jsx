@@ -152,6 +152,7 @@ import NumericalData from "./AddProperties/NumericalData";
 import { useUpdateProperiesMutation } from "./PropertyApiSlice";
 import UpdatePrevImgs from "./UpdatePrevImgs";
 import { useLocation } from "react-router-dom";
+import '../ButtonCss.css'
 
 export default function UpdateProperty() {
     const location = useLocation();
@@ -226,7 +227,7 @@ export default function UpdateProperty() {
                     <TypeOfProperty selected={type} setSelected={setType} selected1={condition} setSelected1={setCondition} />
                     <br />
                     <div className="flex pt-4 justify-content-end" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="פרטי הנכס">
@@ -238,7 +239,7 @@ export default function UpdateProperty() {
                     <br />
                     <div className="flex pt-4 justify-content-between" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="נתונים מספריים">
@@ -252,7 +253,7 @@ export default function UpdateProperty() {
                         ></NumericalData>
                          <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                     </div>
                 </StepperPanel>
@@ -270,7 +271,7 @@ export default function UpdateProperty() {
                     <br />
                     <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="הוספת תמונות">
@@ -284,7 +285,7 @@ export default function UpdateProperty() {
                     {/* <AddImages formData={imgs} setFormData={setImgs} prevImgs={prevImgs} setPrevImgs={setPrevImgs} /> */}
                     <div className="flex pt-4 justify-content-end" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                        <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                        <Button className="button" label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
                     </div>
                 </StepperPanel>
                 <StepperPanel header="בקשת עדכון">
@@ -292,7 +293,7 @@ export default function UpdateProperty() {
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"></div>
                     </div>
                     <div style={{display: 'flex', justifyContent: 'center', margin: '10%'}} >
-                    <Button onClick={(e) => handleSubmit(e)}>עדכן פרטי נכס</Button>
+                    <Button className="button" onClick={(e) => handleSubmit(e)}>עדכן פרטי נכס</Button>
                     </div><br />
                     <div className="flex pt-4 justify-content-start" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5%' }}>
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />

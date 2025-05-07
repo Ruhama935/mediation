@@ -1,16 +1,18 @@
 import { Input, FormControl, FormLabel, Modal, ModalDialog, DialogTitle, Stack, DialogContent } from '@mui/joy';
 import React, { useState, useContext } from 'react';
 import { InputTextarea } from "primereact/inputtextarea";
-import { useSendEmailMutation } from '../PropertyApiSlice';
+// import { useSendEmailMutation } from '../PropertyApiSlice';
 import { InputMask } from "primereact/inputmask";
 import { Button } from 'primereact/button';
 import { useSelector } from 'react-redux';
-import '../../ButtonCss.css'
+import '../ButtonCss.css'
+import { useCreateRecommendationMutation } from './RecommendationApiSlice';
 
 
-function Contact({ id, address }) {
+function AddRec({ id, address }) {
     const [open, setOpen] = useState(false);
-    const [sendFunc, { isError, isLoading, data, error, isSuccess }] = useSendEmailMutation()
+    // const [sendFunc, { isError, isLoading, data, error, isSuccess }] = useSendEmailMutation()
+    const [createFunc, {isSuccess}] = useCreateRecommendationMutation()
     const userLoggedIn = useSelector((state) => state.auth.user);
 
 
@@ -19,33 +21,33 @@ function Contact({ id, address }) {
         const formElements = e.target.elements;
         
         const payload = userLoggedIn ?{
-            propertyId: id,
-            address: address,
-            type: "מישהו מתעניין בדירה",
+            // propertyId: id,
+            // address: address,
+            // type: "מישהו מתעניין בדירה",
             name: userLoggedIn.name,
             email: userLoggedIn.email,
             phone: userLoggedIn.phone,
-            message: formElements[0].value || null
+            body: formElements[0].value || null
         }:{
-            propertyId: id,
-            address: address,
-            type: "מישהו מתעניין בדירה",
+            // propertyId: id,
+            // address: address,
+            // type: "מישהו מתעניין בדירה",
             name: formElements[0].value,
             email: formElements[1].value ,
             phone: formElements[2].value ,
-            message: formElements[3].value || null
+            body: formElements[3].value || null
         };
 
-        sendFunc(payload);
+        createFunc(payload);
     }
     return (
         <>
-            <Button className="button" target="_blank" rel="noopener noreferrer"
+            <Button className="button" target="_blank" rel="noopener noreferrer" style={{ margin: '1.5rem' }}
                 onClick={() => setOpen(true)}>
-                מתעניין בדירה</Button>
+                הוסף המלצה</Button>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog>
-                    <DialogTitle>מתעניין בדירה ({address})</DialogTitle>
+                    <DialogTitle>המלצה</DialogTitle>
                     <form
                         onSubmit={(e) => {
                             handleChange(e)
@@ -66,7 +68,7 @@ function Contact({ id, address }) {
                                     <InputMask title='phone' id="phone" mask="(999) 999-9999" placeholder="(999) 999-9999"></InputMask>
                                 </FormControl> </>}
                             <FormControl>
-                                <FormLabel>הוסף הודעה(אופציונלי)</FormLabel>
+                                <FormLabel>תוכן ההמלצה</FormLabel>
                                 <InputTextarea name="message" rows={4} cols={30} />
                             </FormControl>
                             <Button className='button' type="submit">שלח</Button>
@@ -78,4 +80,4 @@ function Contact({ id, address }) {
     )
 }
 
-export default Contact;
+export default AddRec;

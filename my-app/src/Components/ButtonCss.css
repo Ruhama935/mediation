@@ -1,0 +1,31 @@
+.my-button {
+    background-color: #00032e;
+    color: rgb(237, 191, 109);
+    border-color: rgb(237, 191, 109);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 6px;
+  }
+  
+  .my-button:hover {
+    background-color: rgb(237, 191, 109);
+    color: #00032e;
+  }
+  
+  .button {
+    background-color: #ffffff;
+    color: #00032e;
+    border-color: #00032e;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 6px;
+  }
+  
+  .button:hover {
+    background-color: #00032e;
+    color: rgb(237, 191, 109);
+  }

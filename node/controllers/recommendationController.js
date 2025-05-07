@@ -27,4 +27,23 @@ const getConfirmedRecommendations = async (req, res) => {
     res.json(recommendations)
 }
 
-module.exports = { createRecommendation, getAwaitingRecommendations, getConfirmedRecommendations }
+const updateStatusRecommendation = async (req, res) => {
+    const { status } = req.body
+    const recommendation = await Recommendation.findByIdAndUpdate(req.params.id, { status: status }, { new: true }).lean()
+    if (!recommendation) {
+        return res.status(400).json({ message: 'No recommendation found' })
+    }
+    res.json(recommendation)
+}
+
+
+const deleteRecommendation = async (req, res) => {
+    console.log("I am in the deleteRecommendation")
+    const recommendation = await Recommendation.findByIdAndDelete(req.params.id).lean()
+    if (!recommendation) {
+        return res.status(400).json({ message: 'No recommendation found' })
+    }
+    res.json(recommendation)
+}
+
+module.exports = { createRecommendation, getAwaitingRecommendations, getConfirmedRecommendations, updateStatusRecommendation, deleteRecommendation }

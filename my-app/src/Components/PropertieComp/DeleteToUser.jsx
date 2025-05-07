@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 // import { useDeleteProperiesMutation } from '../PropertieComp/PropertyApiSlice';
 import { useSendEmailMutation } from '../PropertieComp/PropertyApiSlice';
 import { Button } from 'primereact/button';
+import '../ButtonCss.css'
 
 function DeleteToUser({ id }) {
     // const { post, setPosts } = useContext(PostContext)
@@ -18,7 +19,7 @@ function DeleteToUser({ id }) {
 
     return (
         <>
-            <Button
+            <Button className='button'
                 style={{ margin: '0.5rem' }}
                 onClick={() => setOpen(true)}>
                 מחק נכס

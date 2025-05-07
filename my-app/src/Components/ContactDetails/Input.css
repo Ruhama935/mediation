@@ -1,0 +1,13 @@
+.my-input{
+    background-color: #00032e;
+    color: rgb(237, 191, 109);
+    border: 1px solid rgb(237, 191, 109);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    width: 90%;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* backgroundColor: '#00032e' , color:'rgb(237, 191, 109)', height: '50px' */

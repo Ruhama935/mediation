@@ -49,8 +49,6 @@ export default function PropertyOne() {
                 </div>
             </div>
             <ActionsBasedOnPermissions property={property} />
-            
-
         </>
     )
 }
